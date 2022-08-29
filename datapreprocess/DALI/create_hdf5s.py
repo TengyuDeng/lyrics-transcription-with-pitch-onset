@@ -62,7 +62,7 @@ def main(args):
     dali_data = dali_code.get_the_DALI_dataset(dali_dir, gt_path)
 
     print(f"Creating targets for {len(dali_ids)} downloaded tracks.")
-    
+        
     for dali_id in tqdm(dali_ids, unit="file"):
         entry = dali_data[dali_id]
         hdf5_path = os.path.join(hdf5s_dir, f"{dali_id}.h5")
@@ -114,9 +114,9 @@ def create_target(entry, hdf5_path, waveform, waveform_sep, configs):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--workspace", type=str, default="/n/work1/deng/workspaces/", help="Directory of workspace.")
-    parser.add_argument("--dataset_dir", type=str, default="/n/work1/deng/data/DALI", help="Directory of DALI dataset.")
-    parser.add_argument("--config_yaml", type=str, default="./datapreprocess/configs/create_hdf5s.yaml", help="Path to configs.")
+    parser.add_argument("--workspace", type=str, default="./workspace/", help="Directory of workspace.")
+    parser.add_argument("--dataset_dir", type=str, default="./data/DALI", help="Directory of DALI dataset.")
+    parser.add_argument("--config_yaml", type=str, default="./datapreprocess/configs/DALI/hdf5s/create_hdf5s.yaml", help="Path to configs.")
     args = parser.parse_args()
 
     main(args)
