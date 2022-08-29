@@ -20,8 +20,8 @@ dataloaders:
         onset_filter:
           half_length: 5
           v_max: 1
-        hdf5s_dir: "/n/work1/deng/workspaces/hdf5s/DALI/config=16000_256.yaml/"
-        indexes_path: "/n/work1/deng/workspaces/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/train_idx.pkl"
+        hdf5s_dir: "./workspace/hdf5s/DALI/config=16000_256.yaml/"
+        indexes_path: "./workspace/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/train_idx.pkl"
   
       LibriSpeech:
         urls: ["train-clean-360", "train-other-500"]
@@ -41,8 +41,8 @@ dataloaders:
       onset_filter:
         half_length: 5
         v_max: 1
-      hdf5s_dir: "/n/work1/deng/workspaces/hdf5s/DALI/config=16000_256.yaml/"
-      indexes_path: "/n/work1/deng/workspaces/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/val_idx.pkl"
+      hdf5s_dir: "./workspace/hdf5s/DALI/config=16000_256.yaml/"
+      indexes_path: "./workspace/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/val_idx.pkl"
       collate_fn: "frame_based"
       batch_size: 16
 
@@ -55,15 +55,15 @@ dataloaders:
       onset_filter:
         half_length: 5
         v_max: 1
-      hdf5s_dir: "/n/work1/deng/workspaces/hdf5s/DALI/config=16000_256.yaml/"
-      indexes_path: "/n/work1/deng/workspaces/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/test_idx.pkl"
+      hdf5s_dir: "./workspace/hdf5s/DALI/config=16000_256.yaml/"
+      indexes_path: "./workspace/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/test_idx.pkl"
       collate_fn: "frame_based"
       batch_size: 16
 
 
 decoder:
   name: "ds_beam"
-  scorer_path: "/n/work1/deng/tools/lm/librispeech.scorer"
+  scorer_path: "./resources/lm/librispeech.scorer"
 
 model:
   lyrics:
