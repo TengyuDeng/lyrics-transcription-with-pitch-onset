@@ -1,0 +1,8 @@
+---
+n_fold: 5
+sample_rate: 16000
+hop_length: 256
+hdf5s_dir: "/n/work1/deng/workspaces/hdf5s/DALI/config=16000_256.yaml/"
+threshold: 0.7
+
+segment_tatums: 80

@@ -1,0 +1,7 @@
+---
+split: [18, 1, 1]
+sample_rate: 16000
+hop_length: 256
+threshold: 0.5
+
+segment_frames: 1000

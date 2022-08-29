@@ -1,0 +1,81 @@
+---
+task: "LibriSpeech"
+
+dataloaders:
+  
+  feature_type: "melspectrogram"
+  transform_params:
+    n_fft: 512
+    hop_length: 256
+    n_mels: 80
+
+  train:
+    LibriSpeech:
+      type: "LibriSpeech"
+      urls: ["train-clean-360", "train-other-500"]
+      text_only: False
+      channels: 2
+      collate_fn: "frame_based"
+      batch_size: 16
+
+  val:
+
+    dev-clean:
+      type: "LibriSpeech"
+      urls: ["dev-clean"]
+      text_only: False
+      collate_fn: "frame_based"
+      batch_size: 16
+      channels: 2
+
+    dev-other:
+      type: "LibriSpeech"
+      urls: ["dev-other"]
+      text_only: False
+      collate_fn: "frame_based"
+      batch_size: 16
+      channels: 2
+
+  test:
+
+    test-clean:
+      type: "LibriSpeech"
+      urls: ["test-clean"]
+      text_only: False
+      collate_fn: "frame_based"
+      batch_size: 16
+      channels: 2
+
+    test-other:
+      type: "LibriSpeech"
+      urls: ["test-other"]
+      text_only: False
+      collate_fn: "frame_based"
+      batch_size: 16
+      channels: 2
+
+decoder:
+  name: "ds_beam"
+  scorer_path: "/n/work1/deng/tools/lm/librispeech.scorer"
+
+model:
+  lyrics:
+    name: "CRNN_lyrics_pitch_onset"
+    input_features: 80
+    input_channels: 2
+    num_convs: 6
+    conv_channels: [64, 32, 32, 32, 32, 16]
+    kernel_sizes: [5, 5, 3, 3, 3, 3]
+    num_lstms: 3
+
+training:
+  error_names: ["COnPOff F-value", "COnP F-value", "COn F-value", "Frame Error", "WER", "CER"]
+  max_epoch: 100
+  learning_rate: 5e-4
+  warm_up_steps: 100
+  early_stop_monitor: "DALI_val"
+  early_stop_patience: 10
+  early_stop_index: -2
+  early_stop_mode: "min"
+  loss_weights:
+    lyrics: 1.

@@ -1,0 +1,75 @@
+---
+task: "DALI"
+
+dataloaders:
+  
+  feature_type: "melspectrogram"
+  transform_params:
+    n_fft: 512
+    hop_length: 256
+    n_mels: 80
+
+  train:
+    mix:
+      type: "mix"
+      sub_types: ["DALI", "LibriSpeech"]
+      DALI:
+        separated_and_mix: True
+        frame_based: True
+        with_offset: False
+        hdf5s_dir: "/n/work1/deng/workspaces/hdf5s/DALI/config=16000_256.yaml/"
+        indexes_path: "/n/work1/deng/workspaces/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/train_idx.pkl"
+
+      LibriSpeech:
+        urls: ["train-clean-360", "train-other-500"]
+        text_only: False
+        channels: 2
+      
+      collate_fn: "frame_based"
+      batch_size: 16
+      percentage: 0.8
+  val:
+    DALI_val:
+      type: "DALI"
+      separated_and_mix: True
+      frame_based: True
+      with_offset: False
+      hdf5s_dir: "/n/work1/deng/workspaces/hdf5s/DALI/config=16000_256.yaml/"
+      indexes_path: "/n/work1/deng/workspaces/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/val_idx.pkl"
+      collate_fn: "frame_based"
+      batch_size: 16
+
+  test:
+    DALI_test:
+      type: "DALI"
+      separated_and_mix: True
+      frame_based: True
+      with_offset: False
+      hdf5s_dir: "/n/work1/deng/workspaces/hdf5s/DALI/config=16000_256.yaml/"
+      indexes_path: "/n/work1/deng/workspaces/indexes/DALI/config=16000_256_0.5_train_val_test_with_pitch.yaml/test_idx.pkl"
+      collate_fn: "frame_based"
+      batch_size: 16
+model:
+  melody:
+    name: "CRNN_melody"
+    input_features: 80
+    input_channels: 2
+    num_convs: 6
+    conv_channels: [64, 32, 32, 32, 32, 1]
+    kernel_sizes: [5, 5, 3, 3, 3, 1]
+
+training:
+  error_names: ["COnPOff F-value", "COnP F-value", "COn F-value"]
+  max_epoch: 100
+  learning_rate: 5e-4
+  warm_up_steps: 100
+  early_stop_monitor: "RWC_val"
+  early_stop_patience: 10
+  early_stop_index: 1
+  early_stop_mode: "max"
+  rest_weight: 2.
+  onset_weight: 20.
+  loss_weights:
+    pitch: 1.
+    onset: 1.
+    

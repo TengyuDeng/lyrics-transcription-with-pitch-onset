@@ -1,0 +1,6 @@
+---
+n_fold: 5
+sample_rate: 16000
+hop_length: 256
+
+segment_tatums: 80
