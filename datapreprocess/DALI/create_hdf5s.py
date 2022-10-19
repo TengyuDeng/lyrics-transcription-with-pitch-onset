@@ -50,7 +50,7 @@ def midi_to_tatums(midi_notes, tatum_time):
 def main(args):
     workspace = args.workspace
     dali_dir = args.dataset_dir
-    gt_path = "/n/work1/deng/data/DALI/info/gt_v1.0_22:11:18.gz"
+    gt_path = "./DALI/info/gt_v1.0_22:11:18.gz"
     config_yaml = args.config_yaml
     configs = read_yaml(config_yaml)
     sr = configs['sample_rate']

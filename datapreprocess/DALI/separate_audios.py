@@ -66,7 +66,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dataset_dir",
         type=str,
-        default="/n/work1/deng/data/DALI",
+        default="./deng/data/DALI",
         help="Directory of the DALI dataset.",
     )
 
